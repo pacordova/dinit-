@@ -7,31 +7,41 @@ set -e
 
 if [ "$1" != "stop" ]; then
   
-  # hwclock
+  # Set the time.
   hwclock --hctosys
   
-  # cleanup
-  # (delete /tmp etc)
+  # Cleanup (delete /tmp)
   rm -fr /tmp/* /tmp/.[!.]* /tmp/..?*
+
+  # Create /tmp directories needed by Xorg.
   mkdir -m 1777 /tmp/.ICE-unix /tmp/.X11-unix
   
-  # empty utmp, create needed directories
+  # Empty utmp, create needed directories.
   : > /run/utmp
   mkdir -m 0755 /run/{dbus,lock,user}
 
-  # create user runtime directories
+  # Create user runtime directories.
+  # You could create these as a user, see xinit(1).
+  # But this requires `/run/user` to be 1777, 0755 is standard.
   for i in $(awk -F: '!/false/{print $3}' /etc/passwd); do
     mkdir -m 0700 "/run/user/$i"
     chown "$i:$i" "/run/user/$i"
   done
 
-  # Configure random number generator
+  # Configure the random number generator.
   if [ -e /var/state/random-seed ]; then
     cat /var/state/random-seed > /dev/urandom;
   fi
   
-  # cat /etc/hostname > /proc/sys/kernel/hostname
+  # Set the hostname from /etc/hostname.
+  # On Linux, use cat(1) because coreutils/inetutils may not have hostname(1).
+  # Especially if you have a cross compiled variant of coreutils or inetutils.
+  # Comment out if hostname is built-in to the kernel to save a process.
+  # Also remember to update hosts(5).
+  #cat /etc/hostname > /proc/sys/kernel/hostname
 
+  # Restore the previous ALSA configuration `/var/lib/alsa/asound.state`
+  # Use -U to avoid error messages about UCM if you don't have it.
   alsactl -U restore
 
 else
