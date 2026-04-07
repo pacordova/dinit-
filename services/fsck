@@ -1,0 +1,13 @@
+# Check all filesystems in fstab(5).
+# WARNING: Must be run before root is mounted read-write.
+# Use a scripted service so we can have a needs relationship.
+# This is interruptible with ^C
+
+type = scripted
+command = /bin/fsck -A -C -a
+log-type = buffer
+restart = false
+
+options: starts-on-console start-interruptible skippable unmask-intr
+depends-on: eudev
+waits-for: eudev-settle

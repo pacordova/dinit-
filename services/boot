@@ -1,0 +1,14 @@
+# This is the primary service, automatically started when the system comes up.
+
+type = internal
+
+# Starts six standard ttys, using META-COMMANDS:
+depends-ms: agetty@1
+depends-ms: agetty@2
+depends-ms: agetty@3
+depends-ms: agetty@4
+depends-ms: agetty@5
+depends-ms: agetty@6
+
+# Load kernel modules:
+waits-for.d: modprobe.d

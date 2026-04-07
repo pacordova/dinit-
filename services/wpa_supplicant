@@ -1,0 +1,8 @@
+# wpa_supplicant for wireless connections.
+
+type = process
+command = /usr/bin/wpa_supplicant -u
+logfile = /var/log/wpa_supplicant.log
+smooth-recovery = true
+
+waits-for: messagebus

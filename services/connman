@@ -1,0 +1,12 @@
+# The ConnMan connection manager.
+# Note: no network is called by default in boot.
+# Use `dinitctl enable` to enable it.
+# May want to consider dbus-launch for readiness notification.
+
+type = process
+command = /usr/bin/connmand -c /etc/connman.conf -n
+logfile = /var/log/connman.log
+smooth-recovery = true
+
+depends-on: messagebus
+waits-for: wpa_supplicant

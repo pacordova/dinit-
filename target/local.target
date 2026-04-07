@@ -1,0 +1,12 @@
+# local.target runs the /etc/rc.local shell script.
+# It has a milestone relationship with the fstab(5) filesystems.
+
+type = scripted
+command = /etc/rc.local start
+stop-command = /etc/rc.local stop
+log-type = buffer
+restart = false
+
+options: starts-rwfs
+depends-ms: mount-all
+depends-ms: mount-rw@/

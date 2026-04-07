@@ -1,0 +1,6 @@
+type = scripted
+command = /usr/bin/eudevadm settle
+log-type = buffer
+restart = false
+
+depends-on: eudev-trigger

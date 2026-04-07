@@ -1,0 +1,45 @@
+#!/bin/sh
+
+export PATH=/usr/bin
+umask 0077
+
+set -e
+
+if [ "$1" != "stop" ]; then
+  
+  # hwclock
+  hwclock --hctosys
+  
+  # cleanup
+  # (delete /tmp etc)
+  rm -fr /tmp/* /tmp/.[!.]* /tmp/..?*
+  mkdir -m 1777 /tmp/.ICE-unix /tmp/.X11-unix
+  
+  # empty utmp, create needed directories
+  : > /run/utmp
+  mkdir -m 0755 /run/{dbus,lock,user}
+
+  # create user runtime directories
+  for i in $(awk -F: '!/false/{print $3}' /etc/passwd); do
+    mkdir -m 0700 "/run/user/$i"
+    chown "$i:$i" "/run/user/$i"
+  done
+
+  # Configure random number generator
+  if [ -e /var/state/random-seed ]; then
+    cat /var/state/random-seed > /dev/urandom;
+  fi
+  
+  # cat /etc/hostname > /proc/sys/kernel/hostname
+
+  alsactl -U restore
+
+else
+
+  # The system is being shut down
+  
+  # echo "Saving random number seed..."
+  POOLSIZE="$(cat /proc/sys/kernel/random/poolsize)"
+  dd if=/dev/urandom of=/var/state/random-seed bs="$POOLSIZE" count=1 2> /dev/null
+
+fi;

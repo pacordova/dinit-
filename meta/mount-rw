@@ -1,0 +1,10 @@
+# mount-rw@ is a META-COMMAND that mounts its argument as read-write.
+# Currently only used for the root partition.
+# Only do this *after* fsck is ran.
+
+type = process
+command = /bin/mount -n -o remount,rw $1
+log-type = none
+restart = false
+
+depends-on: fsck

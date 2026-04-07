@@ -1,0 +1,8 @@
+# Mounts all filesystems in fstab(5).
+
+type = process
+command = /bin/mount -a -n -m
+log-type = none
+restart = false
+
+depends-on: fsck

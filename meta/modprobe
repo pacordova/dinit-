@@ -1,0 +1,5 @@
+type = scripted
+command = /usr/bin/modprobe $1 > /dev/null
+log-type = buffer
+restart = false
+depends-on: early.target

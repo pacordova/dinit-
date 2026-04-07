@@ -1,0 +1,9 @@
+# mount@ is a META-COMMAND that calls mount(8) on its argument.
+# The command is simple because it reads from fstab(5).
+# You need to have an fstab(5) that specifies system filesystems.
+# See: https://www.linuxfromscratch.org/lfs/view/stable/chapter10/fstab.html
+
+type = process
+command  = /bin/mount -n $1
+log-type = none
+restart = false

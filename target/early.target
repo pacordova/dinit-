@@ -1,0 +1,13 @@
+# early.target is an internal service that calls the mount@ meta command
+# It brings up essential filesystems like /proc, /sys, /dev, and /run.
+# The root filesystem is not actually writable, but /run should be.
+# Use a milestone relationship so mount@ can be a process.
+
+type = internal
+log-type = none
+
+options: starts-rwfs
+depends-ms: mount@/proc
+depends-ms: mount@/sys
+depends-ms: mount@/dev
+depends-ms: mount@/run
