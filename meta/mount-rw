@@ -4,7 +4,6 @@
 
 type = process
 command = /bin/mount -n -o remount,rw $1
-log-type = none
 restart = false
 
 depends-on: fsck

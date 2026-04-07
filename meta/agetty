@@ -3,7 +3,6 @@
 
 type = process
 command = /bin/agetty tty$1 linux-c
-log-type = none
 restart = true
 termsignal = HUP
 smooth-recovery = true

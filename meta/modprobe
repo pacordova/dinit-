@@ -1,5 +1,10 @@
-type = scripted
+# modprobe@ is a META-COMMAND that calls modprobe(8).
+# The argument should be the name of the kernel module you want to load.
+# Example: modprobe@nvidia
+# To enable modules at boot, do e.g. `dinitctl enable modprobe@nvidia`
+
+type = process
 command = /usr/bin/modprobe $1 > /dev/null
-log-type = buffer
 restart = false
+
 depends-on: early.target

@@ -5,5 +5,4 @@
 
 type = process
 command  = /bin/mount -n $1
-log-type = none
 restart = false
