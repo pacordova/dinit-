@@ -6,10 +6,11 @@ DESTDIR = $(libdir)
 RSYNC = rsync -b -c --ignore-non-existing
 
 copy:
-	$(RSYNC) $(libdir)/dinit.d/* services/
-	$(RSYNC) $(libdir)/dinit.d/* meta/
-	$(RSYNC) $(libdir)/dinit.d/* target/
-	$(RSYNC) $(sysconfdir)/*     etc/
+	$(RSYNC) $(libdir)/dinit.d/*     meta/
+	$(RSYNC) $(libdir)/dinit.d/*     target/
+	$(RSYNC) $(libdir)/dinit.d/*     services/
+	$(RSYNC) $(sysconfdir)/dinit.d/* services/
+	$(RSYNC) $(sysconfdir)/*         etc/
 
 clean:
 	find . -name \*~ -delete

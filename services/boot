@@ -10,5 +10,5 @@ depends-ms: agetty@4
 depends-ms: agetty@5
 depends-ms: agetty@6
 
-# Load kernel modules:
-waits-for.d: modprobe.d
+# Load extra services:
+waits-for.d: boot.d
