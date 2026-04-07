@@ -1,4 +1,20 @@
-# /etc/fstab
+# fstab(5) is intended to catalog all static mounts.
+# Some distros hide the system filesystems. This is wrong and hides complexity.
+# Having these options in fstab(5) makes the mount(8) interface very simple.
+# The below mount options are fairly standard for system partitions.
+# See: https://www.linuxfromscratch.org/lfs/view/stable/chapter10/fstab.html
+
+# Possible to one-shot mount(8), but:
+# 1. /proc needs to be first or mount(8) will fail with `--all`
+#    a. Most likely has to do with `/proc/mounts`
+#    b. Not an issue for individual mount(8) calls.
+# 2. Therefore, you cannot parallel mount.
+# 3. You need to remount root for fstab options unless in kernel cmd.
+# 4. If you one-shot, then you can't fsck root or userdata partitions.
+
+# Additionally:
+# 1. The /proc `hidepid=1` bug is fixed, no need to remount.
+# 2. If you have CONFIG_DEVTMPFS built-in, you do not need to mount it.
 
 # <device>     <dir>     <type>   <options>                       <dump> <fsck>
 proc           /proc     proc     nosuid,noexec,nodev,hidepid=1   0      0
