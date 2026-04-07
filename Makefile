@@ -2,7 +2,8 @@
 sysconfdir = /etc
 libdir = /usr/lib64
 
-RSYNC = rsync -b -c --ignore-non-existing
+RSYNC  = rsync -cd --ignore-non-existing
+RSYNC += --backup --suffix=.orig
 
 install:
 	mkdir -p $(sysconfdir)/dinit.d/boot.d
@@ -12,12 +13,18 @@ install:
 	cp -f services/* $(libdir)/dinit.d
 	cp -f etc/rc.local $(sysconfdir)/rc.local
 
+uninstall:
+	rm -f  $(sysconfdir)/rc.local
+	rm -fr $(sysconfdir)/dinit.d
+	rm -fr $(libdir)/dinit.d
+
 copy:
-	$(RSYNC) $(libdir)/dinit.d/*     meta/
-	$(RSYNC) $(libdir)/dinit.d/*     targets/
-	$(RSYNC) $(libdir)/dinit.d/*     services/
-	$(RSYNC) $(sysconfdir)/dinit.d/* services/
-	$(RSYNC) $(sysconfdir)/rc.local  etc/
+	$(RSYNC) $(libdir)/dinit.d/     meta/
+	$(RSYNC) $(libdir)/dinit.d/     targets/
+	$(RSYNC) $(libdir)/dinit.d/     services/
+	$(RSYNC) $(sysconfdir)/dinit.d/ services/
+	$(RSYNC) $(sysconfdir)/rc.local etc/
 
 clean:
 	find . -name \*~ -delete
+	find . -name \*.orig -delete
