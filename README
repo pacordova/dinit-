@@ -1,0 +1,33 @@
+GRAPH
+-----
+
+  mount@/proc  mount@/sys  mount@/dev  mount@/run
+       |____________|___________|___________|
+                          | 
+                     early.target
+                          |
+                        eudev
+                          |
+                     eudev-trigger
+                          |
+                     eudev-settle
+                          |
+                        fsck
+                     _____|________
+                    |              |
+               mount-rw@/     mount-all
+                    |______________|
+                          |
+                     local.target
+                     _____|________
+                    |              |
+               messagebus       syslog      
+                    |______________|
+                          |
+                     login.target
+       ___________________|_____________________________
+      |         |         |         |         |         |
+agetty@1  agetty@2  agetty@3  agetty@4  agetty@5  agetty@6
+      |_________|_________|_________|_________|_________|
+                          |
+                        boot
