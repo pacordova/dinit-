@@ -4,8 +4,7 @@
 # May want to consider dbus-launch for readiness notification.
 
 type = process
-command = /usr/bin/connmand -c /etc/connman.conf -n
-logfile = /var/log/connman.log
+command = /bin/connmand -c /etc/connman.conf -n
 smooth-recovery = true
 
 depends-on: messagebus
