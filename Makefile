@@ -6,7 +6,7 @@ RSYNC  = rsync -cd --ignore-non-existing
 RSYNC += --backup --suffix=.orig
 
 install:
-	mkdir -p $(sysconfdir)/dinit.d/boot.d
+#	mkdir -p $(sysconfdir)/dinit.d/boot.d
 	mkdir -p $(libdir)/dinit.d 
 	cp -f meta/* $(libdir)/dinit.d
 	cp -f targets/* $(libdir)/dinit.d
