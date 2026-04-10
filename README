@@ -15,7 +15,7 @@ GRAPH
                         fsck
                      _____|________
                     |              |
-               mount-rw@/     mount-all
+               mount@/        mount@-a 
                     |______________|
                           |
                      local.target

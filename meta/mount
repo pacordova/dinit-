@@ -3,6 +3,7 @@
 # You need to have an fstab(5) that specifies system filesystems.
 # See: https://www.linuxfromscratch.org/lfs/view/stable/chapter10/fstab.html
 
-type = process
-command  = /bin/mount -n $1
+type = scripted
+command  = /bin/mount -nvm $1
+log-type = buffer
 restart = false

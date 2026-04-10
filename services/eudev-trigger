@@ -1,7 +1,7 @@
 # Trigger udev events for already-present devices.
 
 type = scripted
-command = /usr/bin/eudevadm trigger --action=add
+command = /bin/eudevadm trigger -vc add
 log-type = buffer
 restart = false
 

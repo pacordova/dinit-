@@ -22,7 +22,7 @@ copy:
 	$(RSYNC) $(libdir)/dinit.d/     meta/
 	$(RSYNC) $(libdir)/dinit.d/     targets/
 	$(RSYNC) $(libdir)/dinit.d/     services/
-	$(RSYNC) $(sysconfdir)/dinit.d/ services/
+#	$(RSYNC) $(sysconfdir)/dinit.d/ services/
 	$(RSYNC) $(sysconfdir)/rc.local etc/
 
 clean:

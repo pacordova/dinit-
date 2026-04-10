@@ -4,9 +4,7 @@
 type = process
 command = /bin/agetty tty$1 linux-c
 restart = true
-termsignal = HUP
+term-signal = HUP
 smooth-recovery = true
-inittab-id = $1
-inittab-line = tty$1
 
 depends-on: login.target

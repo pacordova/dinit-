@@ -1,13 +1,12 @@
-# early.target is an internal service that calls the mount@ meta command
-# It brings up essential filesystems like /proc, /sys, /dev, and /run.
-# The root filesystem is not actually writable, but /run should be.
-# Use a milestone relationship so mount@ can be a process.
+# early.target is an internal service mounts early filesystems.
+# e.g. /proc, /sys, /run, /dev
+# This has waits-for dependencies on mount@ to open the dinit control socket.
+# Hence mount@ must be a scripted service.
 
 type = internal
-log-type = none
 
 options: starts-rwfs
-depends-ms: mount@/proc
-depends-ms: mount@/sys
-depends-ms: mount@/dev
-depends-ms: mount@/run
+waits-for: mount@/proc
+waits-for: mount@/sys
+waits-for: mount@/run
+waits-for: mount@/dev
