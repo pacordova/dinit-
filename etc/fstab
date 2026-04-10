@@ -14,7 +14,9 @@
 
 # Additionally:
 # 1. The /proc `hidepid=1` bug is fixed, no need to remount.
-# 2. If you have CONFIG_DEVTMPFS built-in, you do not need to mount it.
+# 2. If you have CONFIG_DEVTMPFS built-in, you do not need to mount /dev.
+# 3. Use option remount for root partition in fstab for mount@/ META-COMMAND.
+#    a. Then you can reuse the generic interface, along with mount@-a.
 
 # <device>     <dir>     <type>   <options>                       <dump> <fsck>
 proc           /proc     proc     nosuid,noexec,nodev,hidepid=1   0      0
